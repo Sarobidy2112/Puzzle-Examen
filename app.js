@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         cases.push(""); // Ajouter une case vide à la fin
 
+        MelangerElementCase(cases);
+
         cases.forEach((caseElement, index) => {
             const casePuzzle = document.createElement("div");
             casePuzzle.className = "casePuzzle";
@@ -22,6 +24,13 @@ document.addEventListener("DOMContentLoaded", () => {
             PuzzleContainer.appendChild(casePuzzle); // Ajouter l'élément DOM au container
         });
 
+    }
+
+    function MelangerElementCase(array) {
+        for (let i = array.length - 1 ; i > 0 ; i--) { 
+            const j = Math.floor(Math.random() * (i + 1)); // j est entre 1 et 3
+            [array[i], array[j]] = [array[j], array[i]];
+        }
     }
 
     creationCasePuzzle();
