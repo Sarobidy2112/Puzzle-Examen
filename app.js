@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             PuzzleContainer.appendChild(casePuzzle); // Ajouter l'élément DOM au container
         });
-
     }
 
     function MelangerElementCase(array) {
@@ -31,6 +30,17 @@ document.addEventListener("DOMContentLoaded", () => {
             const j = Math.floor(Math.random() * (i + 1)); // j est entre 1 et 3
             [array[i], array[j]] = [array[j], array[i]];
         }
+    }
+
+    function MajApresDeplacement(){
+        const casePuzzle = PuzzleContainer.children
+        cases.forEach((tile, index) => {
+            casePuzzle[index].textContent = tile
+            casePuzzle[index].className = "casePuzzle"
+            if(tile === ""){
+                casePuzzle[index].classList.add("empty")
+            }
+        })
     }
 
     creationCasePuzzle();
