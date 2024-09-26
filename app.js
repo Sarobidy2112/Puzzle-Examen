@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
       // Mise à jour de l'affichage après la création
       MajApresDeplacement();
+      Victoire()
     }
   
     function MelangerElementCase(array) {
@@ -67,6 +68,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       });
     }
+
+    // victoire
+    function Victoire(){
+        var a =0;
+        cases.forEach((caseElement,index) => {
+            if(caseElement == index + 1){
+                a++;
+            }
+            if(a==8){
+                alert(" VOUS AVEZ GAGNEZ")
+            }
+        })
+    }
+
+
   
     creationCasePuzzle();
   });
