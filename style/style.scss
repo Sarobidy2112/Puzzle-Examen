@@ -5,7 +5,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-
+    flex-direction: column;
     #puzzle {
         display: grid;
         grid-template-columns: repeat(3, 100px);
