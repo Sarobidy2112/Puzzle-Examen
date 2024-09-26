@@ -21,6 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 casePuzzle.classList.add("empty"); // Ajout de la classe à l'élément DOM
             }
 
+            casePuzzle.addEventListener("click", ()=>{
+                DeplacementCase(index)
+            })
+
             PuzzleContainer.appendChild(casePuzzle); // Ajouter l'élément DOM au container
         });
 
@@ -30,6 +34,19 @@ document.addEventListener("DOMContentLoaded", () => {
         for (let i = array.length - 1 ; i > 0 ; i--) { 
             const j = Math.floor(Math.random() * (i + 1)); // j est entre 1 et 3
             [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    function DeplacementCase(index) {
+        const indexCaseVide = cases.indexOf("");
+        const deplacementValide = [
+            index -1,
+            index +1,
+            index - puzzleSize,
+            index + puzzleSize
+        ];
+        if (deplacementValide.includes(indexCaseVide)) {
+            [cases[index], cases[indexCaseVide]] = [cases[indexCaseVide], cases[index]];
         }
     }
 
