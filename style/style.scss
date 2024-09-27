@@ -87,6 +87,18 @@ body {
     }
 }
 
+.texte{
+    display: none;
+}
+
+canvas {
+    position: absolute; /* Position absolue pour couvrir tout l'écran */
+    top: 0;
+    left: 0;
+    z-index: 0; /* Le canvas est derrière le puzzle */
+    pointer-events: none; /* Pour que le canvas n'interfère pas avec les clics sur le puzzle */
+}
+
 @keyframes colorCycle {
     0% {
         color: red;
