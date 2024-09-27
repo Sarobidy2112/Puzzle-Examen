@@ -1,10 +1,44 @@
+$primary-color: #4caf50;
+$hover-color: #45a049;
+$transition-time: 0.3s;
+$button-padding: 20px 70px;
+$btn-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+$hover-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+$color-cycle: (red, blue, green);
+$case-size: 100px;
+
+@mixin center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin button-style($bg-color, $hover-bg-color, $shadow, $hover-shadow) {
+    background-color: $bg-color;
+    border: none;
+    padding: $button-padding;
+    font-size: 2.2rem;
+    cursor: pointer;
+    transition: background-color $transition-time ease;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: $shadow;
+
+    &:hover {
+        background-color: $hover-bg-color;
+        box-shadow: $hover-shadow;
+    }
+
+    &:active {
+        animation: vibrate $transition-time;
+    }
+}
+
 body {
     width: 100%;
     height: 90vh;
     box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include center-content;
     flex-direction: column;
 }
 
@@ -20,30 +54,11 @@ body {
     }
 
     .btn-container {
-        display: flex;
-        justify-content: center;
+        @include center-content;
         flex-direction: column;
-        align-items: center;
 
         .btn {
-            background-color: #f0f0f0;
-            border: none;
-            padding: 20px 70px;
-            font-size: 2.2rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-            &:hover {
-                background-color: #e0e0e0;
-                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            }
-
-            &:active {
-                animation: vibrate 0.3s;
-            }
+            @include button-style(#f0f0f0, #e0e0e0, $btn-shadow, $hover-shadow);
         }
     }
 }
@@ -54,87 +69,75 @@ body {
 
 .puzzle {
     display: none;
-}
 
-.puzzle.active {
-    display: grid;
-    gap: 5px;
-    width: max-content;
-    margin: 50px auto;
-    .casePuzzle {
-        width: 100px;
-        height: 100px;
-        background-color: #4caf50;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 24px;
-        font-weight: bold;
-        color: white;
-        cursor: pointer;
-        border-radius: 5px;
-        transition: background-color 0.3s;
+    &.active {
+        display: grid;
+        gap: 5px;
+        width: max-content;
+        margin: 50px auto;
 
-        &:hover {
-            background-color: #45a049;
-        }
+        .casePuzzle {
+            width: $case-size;
+            height: $case-size;
+            background-color: $primary-color;
+            @include center-content;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color $transition-time;
 
-        &.empty {
-            background-color: #ffffff;
-            border: 2px dashed #ccc;
-            cursor: default;
+            &:hover {
+                background-color: $hover-color;
+            }
+
+            &.empty {
+                background-color: #ffffff;
+                border: 2px dashed #ccc;
+                cursor: default;
+            }
         }
     }
 }
 
-.texte{
+.texte {
     display: none;
 }
 
 canvas {
-    position: absolute; /* Position absolue pour couvrir tout l'écran */
+    position: absolute;
     top: 0;
     left: 0;
-    z-index: 0; /* Le canvas est derrière le puzzle */
-    pointer-events: none; /* Pour que le canvas n'interfère pas avec les clics sur le puzzle */
+    z-index: 0;
+    pointer-events: none;
 }
 
 @keyframes colorCycle {
-    0% {
-        color: red;
-    }
+    $steps: length($color-cycle);
+    $increment: 100% / $steps; // Calcul de l'incrément pour chaque étape
 
-    50% {
-        color: blue;
-    }
-
-    100% {
-        color: green;
+    @for $i from 0 through ($steps - 1) {
+        $percentage: $i * $increment; // Multiplie l'incrément par l'indice de la boucle
+        #{$percentage} {
+            color: nth($color-cycle, $i + 1);
+        }
     }
 }
 
 @keyframes vibrate {
-    0% {
+    0%,
+    100% {
         transform: translateX(0);
     }
 
-    20% {
-        transform: translateX(-2px);
-    }
-
-    40% {
-        transform: translateX(2px);
-    }
-
+    20%,
     60% {
         transform: translateX(-2px);
     }
 
+    40%,
     80% {
         transform: translateX(2px);
-    }
-
-    100% {
-        transform: translateX(0);
     }
 }
