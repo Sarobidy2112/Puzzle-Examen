@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
   
       // Mise à jour de l'affichage après la création
       MajApresDeplacement();
-      Victoire()
     }
   
     function MelangerElementCase(array) {
@@ -58,29 +57,38 @@ document.addEventListener("DOMContentLoaded", () => {
   
     function MajApresDeplacement() {
       const casePuzzle = PuzzleContainer.children;
-      cases.forEach((tile, index) => {
+      cases.forEach((caseElement, index) => {
         if (casePuzzle[index]) { // Vérifiez si l'élément existe
-          casePuzzle[index].textContent = tile;
+          casePuzzle[index].textContent = caseElement;
           casePuzzle[index].className = "casePuzzle";
-          if (tile === "") {
+          if (caseElement === "") {
             casePuzzle[index].classList.add("empty");
           }
         }
+        Victoire()
       });
+      
     }
 
     // victoire
-    function Victoire(){
-        var a =0;
-        cases.forEach((caseElement,index) => {
-            if(caseElement == index + 1){
+    function Victoire() {
+        let a = 0;
+        
+        cases.forEach((caseElement, index) => {
+            console.log("caseElement:"+caseElement);
+            console.log("Index : "+(index+1));
+            // On ne vérifie pas la dernière case vide
+            if (caseElement !== "" && caseElement == index + 1) {
                 a++;
             }
-            if(a==8){
-                alert(" VOUS AVEZ GAGNEZ")
-            }
-        })
+        });
+        
+        // Il faut que 8 cases soient dans le bon ordre pour gagner
+        if (a === 8) {
+            alert("VOUS AVEZ GAGNÉ !");
+        }
     }
+    
 
 
   
