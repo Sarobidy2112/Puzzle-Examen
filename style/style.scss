@@ -6,6 +6,15 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    // background: gray;
+    transition: background 0.5s ease;
+    canvas {
+        position: absolute; /* Position absolue pour couvrir tout l'écran */
+        top: 0;
+        left: 0;
+        z-index: 0; /* Le canvas est derrière le puzzle */
+        pointer-events: none; /* Pour que le canvas n'interfère pas avec les clics sur le puzzle */
+    }
     #puzzle {
         display: grid;
         grid-template-columns: repeat(3, 100px);
@@ -38,7 +47,9 @@ body{
         }
     }
   }
+  
 }
+
   
   
   
